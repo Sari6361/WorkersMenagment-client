@@ -1,0 +1,55 @@
+<br />
+<div class="bg-dark h">
+  <br />
+
+  <div class="d-flex master justify-content-between container bg-dark">
+    <button class="btn btn-outline-light bt" (click)="exportList()">Export List</button>
+
+    <form class="d-flex justify-content-end" role="search">
+      <input class=" bt search" type="search" placeholder="  Search...." #searchText>
+      <button class="btn btn-outline-light bt" (click)="search(searchText.value)" type="submit">Search</button>
+      <button class="btn btn-outline-light bt" (click)="reset()" type="submit">Reset</button>
+    </form>
+  </div>
+
+  <br />
+  <br />
+
+  <table class="table table-secondary" id="workers">
+    <thead>
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">First Name</th>
+        <th scope="col">Last Name</th>
+        <th scope="col">Identity</th>
+        <th scope="col">Start Date</th>
+        <th scope="col"></th>
+        <th scope="col"></th>
+      </tr>
+    </thead>
+    <tbody>
+      @for(worker of workers; track $index){
+      <tr>
+        <th scope="row">{{$index}}</th>
+        <td>{{worker.firstName}}</td>
+        <td>{{worker.lastName}}</td>
+        <td>{{worker.identity}}</td>
+        <td>{{worker.startDate | date: "dd-MM-YYYY" }}</td>
+        <td>
+          <button class="btn btn-primary mr-1 delbtn" (click)="deleteWorker(worker.id)"> <i
+              class="bi bi-trash3-fill"></i></button>
+        </td>
+        <td>
+          <button class="btn  btn-primary mr-1 updatebtn" (click)="editWorker($index)"><i
+              class="bi bi-pencil-square"></i> </button>
+        </td>
+      </tr>
+      }
+    </tbody>
+  </table>
+
+  <br><br>
+  <div *ngIf="toUpdate" class="container">
+    <app-update-worker [worker]="selectedWorkerEdit" (closeEvent)="closeUpdate()" />
+  </div>
+</div>
